@@ -29,6 +29,7 @@ from .base import IntegerTypeData, TuyaEntity
 from .const import DOMAIN, TUYA_DISCOVERY_NEW, DPCode, WorkMode
 from .util import remap_value
 
+_LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class TuyaLightEntityDescription(LightEntityDescription):
@@ -299,6 +300,8 @@ async def async_setup_entry(
         entities: list[TuyaLightEntity] = []
         for device_id in device_ids:
             device = hass_data.device_manager.device_map[device_id]
+            _LOGGER.info("Setting up a new Tuya device: %s", device_id)
+
             if descriptions := LIGHTS.get(device.category):
                 for description in descriptions:
                     if (
