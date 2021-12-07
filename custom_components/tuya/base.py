@@ -74,7 +74,7 @@ class IntegerTypeData:
     @classmethod
     def from_json(cls, data: str) -> IntegerTypeData:
         """Prints out the IntegerTypeData for logging"""
-        _LOGGER.info("IntegerTypeData: %s", **json.loads(data))
+        _LOGGER.info("Custom JJ Log Message: %s", **json.loads(data))
 
         """Load JSON string and return a IntegerTypeData object."""
         return cls(**json.loads(data))
