@@ -1,6 +1,6 @@
 {
-    "domain": "tuya",
-    "name": "JazzyJake Tuya Integration",
+    "domain": "jazzyjake-tuya",
+    "name": "JazzyJake's Tuya Integration",
     "requirements": ["tuya-iot-py-sdk==0.6.3"],
     "dependencies": ["ffmpeg"],
     "codeowners": ["@JazzyJake", "@Tuya", "@zlinoliver", "@METISU", "@frenck"],
