@@ -253,8 +253,8 @@ class ColorTypeData:
 
 DEFAULT_COLOR_TYPE_DATA = ColorTypeData(
     h_type=IntegerTypeData(min=1, scale=0, max=360, step=1),
-    s_type=IntegerTypeData(min=1, scale=0, max=1000, step=1),
-    v_type=IntegerTypeData(min=1, scale=0, max=1000, step=1),
+    s_type=IntegerTypeData(min=1, scale=0, max=255, step=1),
+    v_type=IntegerTypeData(min=1, scale=0, max=255, step=1),
 )
 
 DEFAULT_COLOR_TYPE_DATA_V2 = ColorTypeData(
@@ -278,13 +278,13 @@ class ColorData:
         """Get the HS value from this color data."""
         return (
             self.type_data.h_type.remap_value_to(self.h_value, 0, 360),
-            self.type_data.s_type.remap_value_to(self.s_value, 0, 1000),
+            self.type_data.s_type.remap_value_to(self.s_value, 0, 100),
         )
 
     @property
     def brightness(self) -> int:
         """Get the brightness value from this color data."""
-        return round(self.type_data.v_type.remap_value_to(self.v_value, 0, 1000))
+        return round(self.type_data.v_type.remap_value_to(self.v_value, 0, 255))
 
 
 async def async_setup_entry(
