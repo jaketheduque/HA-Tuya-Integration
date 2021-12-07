@@ -1,9 +1,9 @@
 {
-    "domain": "jazzyjake-tuya",
+    "domain": "tuya",
     "name": "JazzyJake's Tuya Integration",
     "requirements": ["tuya-iot-py-sdk==0.6.3"],
     "dependencies": ["ffmpeg"],
-    "codeowners": ["@JazzyJake", "@Tuya", "@zlinoliver", "@METISU", "@frenck"],
+    "codeowners": ["@JazzyJake"],
     "config_flow": true,
     "iot_class": "cloud_push",
     "dhcp": [
