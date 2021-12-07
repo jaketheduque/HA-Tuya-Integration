@@ -456,7 +456,7 @@ class TuyaLightEntity(TuyaEntity, LightEntity):
         return self.device.status.get(self.entity_description.key, False)
 
     def turn_on(self, **kwargs: Any) -> None:
-        """Turn on or control the light."""
+        """Turn on or control the light.""" """
         commands = [{"code": self.entity_description.key, "value": True}]
 
         if self._color_temp_type and ATTR_COLOR_TEMP in kwargs:
@@ -567,6 +567,24 @@ class TuyaLightEntity(TuyaEntity, LightEntity):
                     "code": self._brightness_dpcode,
                     "value": round(self._brightness_type.remap_value_from(brightness, 0, 1000)),
                 },
+            ]
+
+        self._send_command(commands)"""
+        commands = [{"code": self.entity_description.key, "value": True}]
+        
+        commands += [
+                {
+                    "code": "colour_data",
+                    "value": {
+                        "h": 359,
+                        "s": 1000,
+                        "v": 1000
+                    }
+                },
+                {
+                    "code": "work_mode",
+                    "value": "colour"
+                }
             ]
 
         self._send_command(commands)
