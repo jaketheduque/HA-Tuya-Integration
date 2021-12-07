@@ -55,7 +55,7 @@ class IntegerTypeData:
         self,
         value: float,
         to_min: float | int = 0,
-        to_max: float | int = 255,
+        to_max: float | int = 1000,
         reverse: bool = False,
     ) -> float:
         """Remap a value from this range to a new range."""
@@ -65,7 +65,7 @@ class IntegerTypeData:
         self,
         value: float,
         from_min: float | int = 0,
-        from_max: float | int = 255,
+        from_max: float | int = 1000,
         reverse: bool = False,
     ) -> float:
         """Remap a value from its current range to this range."""
@@ -73,9 +73,6 @@ class IntegerTypeData:
 
     @classmethod
     def from_json(cls, data: str) -> IntegerTypeData:
-        """Prints out the IntegerTypeData for logging"""
-        _LOGGER.info("Custom JJ Log Message: %s", **json.loads(data))
-
         """Load JSON string and return a IntegerTypeData object."""
         return cls(**json.loads(data))
 

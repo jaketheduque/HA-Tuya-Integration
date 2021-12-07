@@ -279,13 +279,13 @@ class ColorData:
         """Get the HS value from this color data."""
         return (
             self.type_data.h_type.remap_value_to(self.h_value, 0, 360),
-            self.type_data.s_type.remap_value_to(self.s_value, 0, 100),
+            self.type_data.s_type.remap_value_to(self.s_value, 0, 1000),
         )
 
     @property
     def brightness(self) -> int:
         """Get the brightness value from this color data."""
-        return round(self.type_data.v_type.remap_value_to(self.v_value, 0, 255))
+        return round(self.type_data.v_type.remap_value_to(self.v_value, 0, 1000))
 
 
 async def async_setup_entry(
@@ -300,8 +300,6 @@ async def async_setup_entry(
         entities: list[TuyaLightEntity] = []
         for device_id in device_ids:
             device = hass_data.device_manager.device_map[device_id]
-            _LOGGER.info("Setting up a new Tuya device: %s", device_id)
-
             if descriptions := LIGHTS.get(device.category):
                 for description in descriptions:
                     if (
@@ -513,12 +511,12 @@ class TuyaLightEntity(TuyaEntity, LightEntity):
                             ),
                             "s": round(
                                 self._color_data_type.s_type.remap_value_from(
-                                    color[1], 0, 100
+                                    color[1], 0, 1000
                                 )
                             ),
                             "v": round(
                                 self._color_data_type.v_type.remap_value_from(
-                                    brightness
+                                    brightness, 0, 1000
                                 )
                             ),
                         }
@@ -554,12 +552,8 @@ class TuyaLightEntity(TuyaEntity, LightEntity):
                 is not None
             ):
                 # Remap values onto our scale
-                brightness_max = self._brightness_max_type.remap_value_to(
-                    brightness_max
-                )
-                brightness_min = self._brightness_min_type.remap_value_to(
-                    brightness_min
-                )
+                brightness_max = 1000
+                brightness_min = 0
 
                 # Remap the brightness value from their min-max to our 0-255 scale
                 brightness = remap_value(
@@ -571,7 +565,7 @@ class TuyaLightEntity(TuyaEntity, LightEntity):
             commands += [
                 {
                     "code": self._brightness_dpcode,
-                    "value": round(self._brightness_type.remap_value_from(brightness)),
+                    "value": round(self._brightness_type.remap_value_from(brightness, 0, 1000)),
                 },
             ]
 
@@ -596,7 +590,7 @@ class TuyaLightEntity(TuyaEntity, LightEntity):
             return None
 
         # Remap value to our scale
-        brightness = self._brightness_type.remap_value_to(brightness)
+        brightness = self._brightness_type.remap_value_to(brightness, 0, 1000)
 
         # If there is a min/max value, the brightness is actually limited.
         # Meaning it is actually not on a 0-255 scale.
@@ -619,8 +613,8 @@ class TuyaLightEntity(TuyaEntity, LightEntity):
             is not None
         ):
             # Remap values onto our scale
-            brightness_max = self._brightness_max_type.remap_value_to(brightness_max)
-            brightness_min = self._brightness_min_type.remap_value_to(brightness_min)
+            brightness_max = 1000
+            brightness_min = 0
 
             # Remap the brightness value from their min-max to our 0-255 scale
             brightness = remap_value(
