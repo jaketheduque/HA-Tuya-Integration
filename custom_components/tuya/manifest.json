@@ -1,9 +1,10 @@
 {
-    "domain": "jazzyjake-tuya",
-    "name": "JazzyJake's Tuya Integration",
+    "domain": "tuya",
+    "name": "Tuya",
+    "documentation": "https://www.home-assistant.io/integrations/tuya",
     "requirements": ["tuya-iot-py-sdk==0.6.3"],
     "dependencies": ["ffmpeg"],
-    "codeowners": ["@JazzyJake"],
+    "codeowners": ["@Tuya", "@zlinoliver", "@METISU", "@frenck"],
     "config_flow": true,
     "iot_class": "cloud_push",
     "dhcp": [
